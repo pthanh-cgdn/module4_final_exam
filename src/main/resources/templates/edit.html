@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Chinh sua don hang ma so <span th:text="${orderDto.id}"></span> </h1>
+<p style="color: blue" th:text="${message}"></p>
+<p>
+  <a href="/order">Quay lai trang danh sach don hang</a>
+</p>
+<form action="/edit" method="post" th:object="${orderDto}">
+  <fieldset>
+    <legend>Student information</legend>
+    <table>
+      <tr>
+        <td>Loai san pham: </td>
+        <td>
+          <select>
+            <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}">
+            </option>
+          </select>
+          <input type="hidden" th:field="*{id}" th:value="${orderDto.getId()}">
+        </td>
+      </tr>
+      <tr>
+        <td>San pham: </td>
+        <td>
+          <select th:field="*{product}">
+            <option th:each="product : ${products}" th:value="${product.id}" th:text="${product.name}">
+            </option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>Ngay mua: </td>
+        <td>
+          <input type="date" th:field="*{date}"/>
+          <p th:if="${#fields.hasErrors('date')}" th:errors="*{date}" style="color: red; font-style: italic"></p>
+        </td>
+      </tr>
+      <tr>
+        <td>So luong: </td>
+        <td>
+          <input type="number" th:field="*{quantity}"/>
+          <p th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}" style="color: red; font-style: italic"></p>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="submit" value="Sua"></td>
+      </tr>
+    </table>
+  </fieldset>
+</form>
+</body>
+</html>
